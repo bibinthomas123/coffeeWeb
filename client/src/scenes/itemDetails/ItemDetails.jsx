@@ -3,23 +3,23 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Item from "../../components/Item";
+// import Item from "../../components/Item";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { shades } from "../../theme";
+import { shades } from "../../theme/theme";
 import { addToCart } from "../../state";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const ItemDetails = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { itemId } = useParams();
   const [value, setValue] = useState("integrent");
   const [count, setCount] = useState(1);
   const [item, setItem] = useState(null);
-  const [items, setItems] = useState([]);
+  const [ setItems] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

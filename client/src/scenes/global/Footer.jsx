@@ -1,13 +1,11 @@
 import { useTheme } from "@emotion/react";
 import { Box, Typography } from "@mui/material";
-import { shades } from "../../theme";
+
 
 function Footer() {
-  const {
-    palette: { neutral },
-  } = useTheme();
+  const theme= useTheme();
   return (
-    <Box marginTop="70px" padding="40px 0" backgroundColor={neutral.light}>
+    <Box marginTop="70px" padding="40px 0" backgroundColor={theme.palette.neutral.light}>
       <Box
         width="80%"
         margin="auto"
@@ -22,7 +20,7 @@ function Footer() {
             variant="h4"
             fontWeight="bold"
             mb="30px"
-            color={shades.secondary[500]}
+            color={theme.palette.shades.secondary[500]}
           >
             ECOMMER
           </Typography>

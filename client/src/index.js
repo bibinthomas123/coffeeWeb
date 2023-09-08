@@ -5,9 +5,9 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./state";
-import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { theme } from "./theme";
+import ThemeProvider from "./theme";
+import NotistackProvider from "./components/notistackProvider";
 
 const store = configureStore({
   reducer: {
@@ -19,9 +19,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <CssBaseline />
-        <App />
+        <NotistackProvider>
+          <App />
+        </NotistackProvider>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>

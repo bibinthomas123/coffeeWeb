@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Badge, Box, IconButton } from "@mui/material";
+import { Badge, Box, IconButton, useTheme } from "@mui/material";
 import {
   PersonOutline,
   ShoppingBagOutlined,
@@ -7,11 +7,11 @@ import {
   SearchOutlined,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
 
 function Navbar() {
   const navigate = useNavigate();
+  const theme = useTheme();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
 
@@ -38,7 +38,7 @@ function Navbar() {
         <Box
           onClick={() => navigate("/")}
           sx={{ "&:hover": { cursor: "pointer" } }}
-          color={shades.secondary[500]}
+          color={theme.palette.shades.secondary[500]}
           style={{ fontFamily: "Dancing Script", fontSize: "30px" }}
         >
           Renu's Coffee

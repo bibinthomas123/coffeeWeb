@@ -3,18 +3,22 @@ import { Box, Button, Stepper, Step, StepLabel } from "@mui/material";
 import { Formik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
-import { shades } from "../../theme";
+import { shades } from "../../theme/theme";
 import Payment from "./Payment";
 import Shipping from "./Shipping";
-import { loadStripe } from "@stripe/stripe-js";
+import { useSnackbar } from "notistack";
+// import { loadStripe } from "@stripe/stripe-js";
+import { useNavigate } from "react-router-dom";
 
-const stripePromise = loadStripe(
-  "pk_test_51LgU7yConHioZHhlAcZdfDAnV9643a7N1CMpxlKtzI1AUWLsRyrord79GYzZQ6m8RzVnVQaHsgbvN1qSpiDegoPi006QkO0Mlc"
-);
+// const stripePromise = loadStripe(
+//   "pk_test_51LgU7yConHioZHhlAcZdfDAnV9643a7N1CMpxlKtzI1AUWLsRyrord79GYzZQ6m8RzVnVQaHsgbvN1qSpiDegoPi006QkO0Mlc"
+// );
 
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
   const cart = useSelector((state) => state.cart.cart);
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const isFirstStep = activeStep === 0;
   const isSecondStep = activeStep === 1;
 
@@ -37,22 +41,43 @@ const Checkout = () => {
   };
 
   async function makePayment(values) {
-    const stripe = await stripePromise;
-    const requestBody = {
-      userName: [values.firstName, values.lastName].join(" "),
-      email: values.email,
-      products: cart.map(({ id, count }) => ({
-        id,
-        count,
-      })),
-    };
+    // const stripe = await stripePromise;
+    console.log(cart);
+    if (Array.isArray(cart) && cart.length > 0) {
+      const firstName = values.firstName || "John"; // Replace 'John' with a default value of your choice
+      const lastName = values.lastName || "Doe"; // Replace 'Doe' with a default value of your choice
 
-     await fetch("http://localhost:1337/api/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(requestBody),
-    });
-    
+      const data = {
+        userName: `${firstName} ${lastName}`,
+        email: values.email,
+        products: cart.map((product) => ({
+          productId: product.id,
+          quantity: product.count,
+          productName: product.attributes.name,
+          price: product.attributes.price,
+        })),
+      };
+
+      fetch("http://localhost:1337/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data }),
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            navigate("/checkout/success");
+          }
+        })
+
+        .catch((error) => {
+          console.error("Error:", error);
+          enqueueSnackbar("Something went wrong! ", { variant: "error" })
+        });
+    } else {
+      // Handle the case where cart is empty or undefined
+      enqueueSnackbar("Cart is empty , Please add items to cart", { variant: "error" })
+    }
+
     // const session = await response.json();
     // console.log(cart[0].attributes.price)
     // // Assuming cart is an array of objects with id and count properties
@@ -61,7 +86,7 @@ const Checkout = () => {
     //   price: 'price_1NnnpoSCgy3veZpnpzp4Mfim',
     //   quantity: parseInt(count, 10) || 1, // Parse count as a number and set a default of 1
     // }));
-    
+
     // await stripe.redirectToCheckout({
     //   sessionId: session.id,
     //   lineItems,
@@ -69,7 +94,6 @@ const Checkout = () => {
     //   successUrl: `http://localhost:3000/checkout/success`,
     //   cancelUrl: `http://localhost:3000/checkout/cancel`,
     // });
-    
   }
 
   return (
@@ -149,7 +173,8 @@ const Checkout = () => {
                     padding: "15px 40px",
                   }}
                 >
-                  {!isSecondStep ? "Next" : "Place Order"}
+                  {/* {!isSecondStep ? "Next" : "Place Order"} */}
+                  {isSecondStep ? "Place Order" : "Next"}
                 </Button>
               </Box>
             </form>
