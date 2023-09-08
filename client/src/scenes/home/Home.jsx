@@ -7,7 +7,7 @@ function Home() {
     <div className="home">
       <MainCarousel />
       <ShoppingList />
-      <Subscribe />
+      {/* <Subscribe /> */}
     </div>
   );
 }

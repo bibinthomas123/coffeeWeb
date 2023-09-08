@@ -47,15 +47,29 @@ const Checkout = () => {
       })),
     };
 
-    const response = await fetch("http://localhost:1337/api/orders", {
+     await fetch("http://localhost:1337/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     });
-    const session = await response.json();
-    await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
+    
+    // const session = await response.json();
+    // console.log(cart[0].attributes.price)
+    // // Assuming cart is an array of objects with id and count properties
+
+    // const lineItems = cart.map(({ id, count,price }) => ({
+    //   price: 'price_1NnnpoSCgy3veZpnpzp4Mfim',
+    //   quantity: parseInt(count, 10) || 1, // Parse count as a number and set a default of 1
+    // }));
+    
+    // await stripe.redirectToCheckout({
+    //   sessionId: session.id,
+    //   lineItems,
+    //   mode: 'payment',
+    //   successUrl: `http://localhost:3000/checkout/success`,
+    //   cancelUrl: `http://localhost:3000/checkout/cancel`,
+    // });
+    
   }
 
   return (

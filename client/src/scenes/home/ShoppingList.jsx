@@ -81,7 +81,7 @@ const ShoppingList = () => {
         gridTemplateColumns="repeat(auto-fill, 300px)"
         justifyContent="space-around"
         rowGap="20px"
-        columnGap="1.33%"
+        columnGap="0.5%"
       >
         {value === "all" &&
           items.map((item) => (

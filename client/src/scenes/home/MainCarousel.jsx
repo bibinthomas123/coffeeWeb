@@ -60,9 +60,10 @@ const MainCarousel = () => {
           <img
             src={texture}
             alt={`carousel-${index}`}
+            lazyload="true"
             style={{
               width: "100%",
-              height: "700px",
+              height: "550px",
               objectFit: "cover",
               backgroundAttachment: "fixed",
             }}

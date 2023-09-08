@@ -39,8 +39,9 @@ function Navbar() {
           onClick={() => navigate("/")}
           sx={{ "&:hover": { cursor: "pointer" } }}
           color={shades.secondary[500]}
+          style={{ fontFamily: "Dancing Script", fontSize: "30px" }}
         >
-          ECOMMER
+          Renu's Coffee
         </Box>
         <Box
           display="flex"
