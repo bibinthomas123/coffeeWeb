@@ -16,10 +16,10 @@
       "type": "json"
     },
     "userName": {
-      "type": "text"
+      "type": "string"
     },
     "email": {
-      "type": "json"
+      "type": "string"
     }
   }
 }

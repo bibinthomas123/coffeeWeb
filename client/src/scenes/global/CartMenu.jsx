@@ -12,6 +12,7 @@ import {
   setIsCartOpen,
 } from "../../state";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -19,11 +20,28 @@ const FlexBox = styled(Box)`
   align-items: center;
 `;
 
+const isCartEmpty = (cart) => {
+  // logic to check if the cart is empty based on your data structure
+  return cart.length === 0;
+};
+
 const CartMenu = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart.cart);
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
+
+  const handleCheckoutClick = () => {
+    console.log(cart);
+    if (!isCartEmpty(cart)) {
+      navigate("/checkout");
+      dispatch(setIsCartOpen({}));
+    } else {
+      // Cart is  empty, show a message or take appropriate action
+      enqueueSnackbar("Cart is empty", { variant: "error" });
+    }
+  };
 
   const totalPrice = cart.reduce((total, item) => {
     return total + item.count * item.attributes.price;
@@ -132,11 +150,13 @@ const CartMenu = () => {
                 minWidth: "100%",
                 padding: "20px 40px",
                 m: "20px 0",
+
+                "&:hover": {
+                  backgroundColor: "#f3ede8",
+                  color: "#000",
+                },
               }}
-              onClick={() => {
-                navigate("/checkout");
-                dispatch(setIsCartOpen({}));
-              }}
+              onClick={handleCheckoutClick}
             >
               CHECKOUT
             </Button>

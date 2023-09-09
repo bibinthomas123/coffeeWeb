@@ -124,7 +124,7 @@ const CHART_COLORS = {
 };
 
 const COMMON = {
-  common: { black: "#000", white: "#fff" },
+  common: { black: "#000", white: "#bfbfbf" },
   primary: { ...PRIMARY, contrastText: "#fff" },
   secondary: { ...SECONDARY, contrastText: "#fff" },
   info: { ...INFO, contrastText: "#fff" },

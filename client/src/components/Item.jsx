@@ -12,9 +12,7 @@ const Item = ({ item, width }) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
-  const {
-    palette: { neutral },
-  } = useTheme();
+  const theme = useTheme();
 
   const { category, price, name, image } = item.attributes;
   const {
@@ -40,7 +38,7 @@ const Item = ({ item, width }) => {
           height="300px"
           src={`http://localhost:1337${url}`}
           onClick={() => navigate(`/item/${item.id}`)}
-          style={{ cursor: "pointer" ,borderRadius:"10px"}}
+          style={{ cursor: "pointer", borderRadius: "10px" }}
         />
         <Box
           display={isHovered ? "block" : "none"}
@@ -78,7 +76,10 @@ const Item = ({ item, width }) => {
       </Box>
 
       <Box mt="3px">
-        <Typography variant="subtitle2" color={neutral.dark}>
+        <Typography
+          variant="subtitle2"
+          color={theme.palette.shades.secondary[500]}
+        >
           {category
             .replace(/([A-Z])/g, " $1")
             .replace(/^./, (str) => str.toUpperCase())}

@@ -44,9 +44,9 @@ const Checkout = () => {
     // const stripe = await stripePromise;
     console.log(cart);
     if (Array.isArray(cart) && cart.length > 0) {
-      const firstName = values.firstName || "John"; // Replace 'John' with a default value of your choice
-      const lastName = values.lastName || "Doe"; // Replace 'Doe' with a default value of your choice
-
+      const firstName = values.billingAddress.firstName || "John"; // Replace 'John' with a default value of your choice
+      const lastName = values.billingAddress.lastName || "Doe"; // Replace 'Doe' with a default value of your choice
+      console.log( values.billingAddress.firstName , values.billingAddress.lastName)
       const data = {
         userName: `${firstName} ${lastName}`,
         email: values.email,

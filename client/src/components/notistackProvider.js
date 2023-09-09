@@ -72,6 +72,7 @@ export default function NotistackProvider({ children }) {
         dense
         maxSnack={5}
         preventDuplicate
+        hideIconVariant
         autoHideDuration={3000}
         variant="success" // Set default variant
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
